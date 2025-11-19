@@ -1,0 +1,17 @@
+{
+  "name": "Pair Session Generator",
+  "description": "Simple Web-Based Session Generator for Baileys",
+  "logo": "https://i.imgur.com/teQzVR1.jpeg",
+  "repository": "https://github.com/XdKing2/malvin-pair",
+  "keywords": ["MalvinTech", "XdKing2", "Pairing", "Baileys"],
+  "success_url": "/",
+  "stack": "container",
+
+  "env": {
+    "PORT": {
+      "description": "Port for web app. (4000, 5000, 3000 etc.)",
+      "value": "5000",
+      "required": false
+    }
+  }
+}
