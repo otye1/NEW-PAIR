@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYPHER SESSION ID GENERATOR</title>
+  <link rel="shortcut icon" href="https://files.catbox.moe/39z8jd.jpg" type="image/x-icon">
+  <style>
+    /* === GENERAL PAGE STYLE === */
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #001100 0%, #000000 100%);
+      font-family: 'Courier New', monospace;
+      color: #00ff88;
+      overflow: hidden;
+    }
+
+    /* === DIGITAL BACKGROUND EFFECT === */
+    .matrix {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        rgba(0, 255, 100, 0.04) 0px,
+        rgba(0, 255, 100, 0.04) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      z-index: -2;
+      animation: scan 4s linear infinite;
+    }
+
+    @keyframes scan {
+      from { transform: translateY(0); }
+      to { transform: translateY(100%); }
+    }
+
+    /* === GLOW HEADER === */
+    h3 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px #00ff66, 0 0 20px #00ff66, 0 0 40px #00ff66;
+      animation: flicker 2s infinite;
+      margin-bottom: 40px;
+    
+    }
+
+    @keyframes flicker {
+      0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        opacity: 1;
+      }
+      20%, 24%, 55% {
+        opacity: 0.5;
+      }
+    }
+
+    /* === BUTTON CONTAINER === */
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* === HACKER BUTTON === */
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 240px;
+      height: 45px;
+      border: 2px solid #00ff73;
+      border-radius: 8px;
+      color: #00ff73;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: 1px;
+      background: rgba(0, 255, 100, 0.08);
+      box-shadow: 0 0 10px #00ff73;
+      position: relative;
+      overflow: hidden;
+      transition: 0.2s;
+    }
+
+    .button:hover {
+      background: rgba(0, 255, 100, 0.2);
+      box-shadow: 0 0 20px #00ff73, 0 0 40px #00ff73;
+      transform: scale(1.05);
+    }
+
+    /* === FOOTER === */
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      background: rgba(0, 255, 100, 0.05);
+      color: #00ff73;
+      padding: 10px 0;
+      font-size: 14px;
+      border-top: 1px solid #00ff73;
+      letter-spacing: 1px;
+      box-shadow: 0 0 10px #00ff73;
+    }
+
+    footer span {
+      color: #00ff66;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="matrix"></div>
+
+  <div class="button-container">
+    <h3>CYPHER SESSION ID GENERATOR</h3>
+
+    <a href="/qr" class="button" target="_blank"><span>QR CODE</span></a>
+    <a href="/pair" class="button" target="_blank"><span>PAIRING CODE</span></a>
+    <a href="https://wa.me/2348126159499" class="button" target="_blank"><span> MESSAGE FOR ERROR</span></a>
+  </div>
+
+  <footer>
+    CYPHER &copy; <span id="currentYear"></span>
+  </footer>
+
+  <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
