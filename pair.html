@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cypher Session ID Generator</title>
+  <link rel="stylesheet" href="css/all.min.css">
+  <style>
+    /* ======= GENERAL PAGE STYLE ======= */
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: radial-gradient(circle at center, #000000 60%, #040010 100%);
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+      color: #00ff99;
+    }
+
+    /* ======= GLOW ANIMATION ======= */
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px #00ff99, 0 0 15px #00ff99; }
+      50% { text-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffaa; }
+      100% { text-shadow: 0 0 5px #00ff99, 0 0 15px #00ff99; }
+    }
+
+    /* ======= TITLE ======= */
+    h1 {
+      color: #00ff99;
+      font-size: 1.7rem;
+      letter-spacing: 3px;
+      animation: glow 2s infinite;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #00ffaa;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    /* ======= CARD BOX ======= */
+    .box {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid #00ff99;
+      border-radius: 15px;
+      padding: 25px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 255, 153, 0.3);
+    }
+
+    /* ======= INPUT FIELD ======= */
+    .input-container {
+      display: flex;
+      margin-top: 10px;
+      background: rgba(0, 255, 153, 0.1);
+      border-radius: 10px;
+      border: 1px solid #00ffaa;
+      overflow: hidden;
+    }
+
+    .input-container input {
+      background: transparent;
+      border: none;
+      padding: 12px;
+      color: #00ffcc;
+      flex: 1;
+      font-size: 1rem;
+      outline: none;
+      letter-spacing: 1px;
+    }
+
+    .input-container button {
+      background: #00ff99;
+      color: black;
+      border: none;
+      padding: 12px 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .input-container button:hover {
+      background: #00ffaa;
+      color: black;
+    }
+
+    /* ======= MESSAGE & CODE ======= */
+    #pair {
+      margin-top: 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #00ffaa;
+    }
+
+    #copy {
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    /* ======= FOOTER ======= */
+    .footer {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #00ffcc;
+      animation: glow 3s infinite;
+    }
+  </style>
+</head>
+<body>
+  <h1>CY<font color="#00ffaa">PHER</font> SESSION ID GENERATOR</h1>
+  <h2>Enter your WhatsApp number</h2>
+
+  <div class="box">
+    <div class="input-container">
+      <input placeholder="+2347147XXXX" type="number" id="number">
+      <button id="submit">Generate</button>
+    </div>
+
+    <div id="pair"></div>
+  </div>
+
+  <div class="footer">Powered By Cypher</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+  <script>
+    let a = document.getElementById("pair");
+    let b = document.getElementById("submit");
+    let c = document.getElementById("number");
+
+    async function Copy() {
+      let text = document.getElementById("copy").innerText;
+      let obj = document.getElementById("copy");
+      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
+      obj.innerText = "COPIED!";
+      obj.style.color = "#00ffaa";
+      setTimeout(() => {
+        obj.innerText = text;
+        obj.style.color = "#00ff99";
+      }, 700);
+    }
+
+    b.addEventListener("click", async (e) => {
+      e.preventDefault();
+      if (!c.value) {
+        a.innerHTML = '<span style="color:red;">❗Enter your WhatsApp number first.</span>';
+      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
+        a.innerHTML = '<span style="color:red;">❌ Invalid number format ❌</span>';
+      } else {
+        const bc = c.value.replace(/[^0-9]/g, "");
+        a.innerHTML = '<span style="color:#00ffaa;">Generating your session ID...</span>';
+        try {
+          let { data } = await axios(`/code?number=${bc}`);
+          let code = data.code || "Service Unavailable";
+          a.innerHTML = '<span id="copy" onclick="Copy()">CODE: <font color="#00ff99">' + code + '</font></span>';
+        } catch {
+          a.innerHTML = '<span style="color:red;">⚠ Error connecting to server ⚠</span>';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
